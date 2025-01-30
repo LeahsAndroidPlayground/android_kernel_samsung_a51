@@ -12,17 +12,16 @@
 /dts-v1/;
 /plugin/;
 #include "exynos9611-a51_common.dtsi"
-#include "battery_data_a51_00.dtsi"
+#include "battery_data_a51_03.dtsi"
 #include "exynos9611-a51_fingerprint_00.dtsi"
-#include "exynos9611-a51_sensorhub_01.dtsi"
-#include "exynos9611-a51_nfc_01.dtsi"
-#include "exynos9611-a51_eur_open_gpio_01.dtsi"
-#include "exynos9611-a51_ltn_dtv-isdbt_00.dtsi"
+#include "exynos9611-a51_sensorhub_03.dtsi"
+#include "exynos9611-a51_nfc_ese_03.dtsi"
+#include "exynos9611-a51_ltn_dtv_gpio_03.dtsi"
 
 / {
-	compatible = "samsung, A51 EUR OPEN REV00A", "samsung,EXYNOS9611";
-	dtbo-hw_rev = <1>;
-	dtbo-hw_rev_end = <2>;
+	compatible = "samsung, A51 LTN DTV REV01", "samsung,EXYNOS9611";
+	dtbo-hw_rev = <3>;
+	dtbo-hw_rev_end = <255>;
 
 	fragment@model {
 		target-path = "/";
@@ -30,7 +29,7 @@
 			#address-cells = <2>;
 			#size-cells = <1>;
 
-			model = "Samsung A51 EUR OPEN REV00A based on Exynos9611";
+			model = "Samsung A51 LTN DTV REV01 based on Exynos9611";
 
 			mif_pdata {
 				/* GPIOs for HW REV */
@@ -91,14 +90,6 @@
 		}; /* end of __overlay__ */
 	}; /* end of fragment */
 }; /* end of root */
-
-&i2c_6 {
-	rt5665@1b {
-		realtek,sar-hs-open-gender = <1950>;
-		realtek,ext-ant-det-gpio = <&gpa1 4 0>;
-		realtek,gpio-dtv-check = <&gpg2 2 0>;
-	};
-};
 
 &pinctrl_0 {
 	earant_det: earant-det {

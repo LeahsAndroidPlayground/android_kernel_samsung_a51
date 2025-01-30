@@ -12,17 +12,16 @@
 /dts-v1/;
 /plugin/;
 #include "exynos9611-a51_common.dtsi"
-#include "battery_data_a51_00.dtsi"
+#include "battery_data_a51_usa_00.dtsi"
 #include "exynos9611-a51_fingerprint_00.dtsi"
-#include "exynos9611-a51_sensorhub_01.dtsi"
-#include "exynos9611-a51_nfc_01.dtsi"
-#include "exynos9611-a51_eur_open_gpio_01.dtsi"
-#include "exynos9611-a51_ltn_dtv-isdbt_00.dtsi"
+#include "exynos9611-a51_sensorhub_03.dtsi"
+#include "exynos9611-a51_nfc_ese_03.dtsi"
+#include "exynos9611-a51_can_single_gpio_00.dtsi"
 
 / {
-	compatible = "samsung, A51 EUR OPEN REV00A", "samsung,EXYNOS9611";
-	dtbo-hw_rev = <1>;
-	dtbo-hw_rev_end = <2>;
+	compatible = "samsung, A51 CAN SINGLE REV00", "samsung,EXYNOS9611";
+	dtbo-hw_rev = <0>;
+	dtbo-hw_rev_end = <255>;
 
 	fragment@model {
 		target-path = "/";
@@ -30,23 +29,13 @@
 			#address-cells = <2>;
 			#size-cells = <1>;
 
-			model = "Samsung A51 EUR OPEN REV00A based on Exynos9611";
+			model = "Samsung A51 CAN SINGLE REV00 based on Exynos9611";
 
 			mif_pdata {
 				/* GPIOs for HW REV */
 				/* XGPIO26-AP_REV0, XGPIO27-AP_REV1, XGPIO28-AP_REV2, XGPIO29-AP_REV3 */
 				gpios = <&gpg3 2 0>, <&gpg3 3 0>, <&gpg3 4 0>, <&gpg3 5 0>;
 				pinctrl-names = "default";
-			};
-
-			sec_vib {
-				compatible = "sec_vib";
-				sec_vib_pdata {
-					status = "okay";
-					sec_vib,max_timeout = <10000>;
-					sec_vib,ldo_type = <1>;
-					sec_vib,ldo_en = <&gpg2 5 0>;
-				};
 			};
 
 			i2c@20 {
@@ -71,7 +60,7 @@
 					interrupts = <5 0 0>;
 					a96t3x6,irq_gpio = <&gpa2 5 0>;
 					a96t3x6,ldo_en = <&gpg2 1 0>;
-					a96t3x6,fw_path = "abov/a96t356_a51.fw";
+					a96t3x6,fw_path = "abov/a96t356_a51_usa.fw";
 					a96t3x6,firmup_cmd = <0x3b>;
 				};
 
@@ -84,21 +73,29 @@
 					interrupts = <7 0 0>;
 					a96t3x6,irq_gpio = <&gpa2 7 0>;
 					a96t3x6,ldo_en = <&gpg2 1 0>;
-					a96t3x6,fw_path = "abov/a96t356_a51_sub.fw";
+					a96t3x6,fw_path = "abov/a96t356_a51_usa_sub.fw";
 					a96t3x6,firmup_cmd = <0x3b>;
 				};
+			};
+
+			dc_vibrator {
+				status = "disabled";
+			};
+
+			isa1000_vibrator {
+				compatible = "imagis,isa1000_vibrator";
+				status = "okay";
+				pinctrl-names = "default";
+				pinctrl-0 = <&vib_pwm &motor_en>;
+				pwms = <&sec_pwm 0 50000 0>;
+				isa1000,duty_ratio = <90>;
+				isa1000,frequency = <2000>; /* 200.0Hz */
+				isa1000,gpio_en = <&gpg2 5 1>;
+				isa1000,motor_type = "LINEAR";
 			};
 		}; /* end of __overlay__ */
 	}; /* end of fragment */
 }; /* end of root */
-
-&i2c_6 {
-	rt5665@1b {
-		realtek,sar-hs-open-gender = <1950>;
-		realtek,ext-ant-det-gpio = <&gpa1 4 0>;
-		realtek,gpio-dtv-check = <&gpg2 2 0>;
-	};
-};
 
 &pinctrl_0 {
 	earant_det: earant-det {
@@ -140,4 +137,17 @@
 		samsung,pin-pud = <0>;
 		samsung,pin-val = <1>;
 	};
+
+	vib_pwm: vib-pwm {
+		samsung,pins = "gpg4-1";
+		samsung,pin-function = <2>;
+		samsung,pin-pud = <1>;
+		samsung,pin-drv = <0>;
+		samsung,pin-con-pdn = <3>;
+		samsung,pin-pud-pdn = <1>;
+	};
+};
+
+&fimc_is_macro_module_gc5035 {
+	gpio_reset = <&gpa0 4 0x1>; /* RCAM4_RST_N */
 };

@@ -16,11 +16,10 @@
 #include "exynos9611-a51_fingerprint_00.dtsi"
 #include "exynos9611-a51_sensorhub_00.dtsi"
 #include "exynos9611-a51_nfc_00.dtsi"
-#include "exynos9611-a51_eur_open_gpio_00.dtsi"
-#include "exynos9611-a51_ltn_dtv-isdbt_00.dtsi"
+#include "exynos9611-a51_ltn_dtv_gpio_00.dtsi"
 
 / {
-	compatible = "samsung, A51 EUR OPEN REV00", "samsung,EXYNOS9611";
+	compatible = "samsung, A51 LTN DTV REV00", "samsung,EXYNOS9611";
 	dtbo-hw_rev = <0>;
 	dtbo-hw_rev_end = <0>;
 
@@ -30,7 +29,7 @@
 			#address-cells = <2>;
 			#size-cells = <1>;
 
-			model = "Samsung A51 EUR OPEN REV00 based on Exynos9611";
+			model = "Samsung A51 LTN DTV REV00 based on Exynos9611";
 
 			mif_pdata {
 				/* GPIOs for HW REV */
@@ -124,14 +123,6 @@
 		sx9360,refresolution_reg = <0x0F>;	/* reference phase  resolution: 1204 */
 		sx9360,hallic_detect = <1>;
 		sx9360,hallic_cert_detect = <1>;
-	};
-};
-
-&i2c_6 {
-	rt5665@1b {
-		realtek,sar-hs-open-gender = <1950>;
-		realtek,ext-ant-det-gpio = <&gpa1 4 0>;
-		realtek,gpio-dtv-check = <&gpg2 2 0>;
 	};
 };
 
