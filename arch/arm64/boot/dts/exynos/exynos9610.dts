@@ -3286,6 +3286,41 @@
 		iommus = <&sysmmu_g2d>;
 		smfc,int_qos_minlock = <534000>;
 	};
+
+	/* gpu_opp_table */
+	gpu_opp_table: opp_table0 {
+		compatible = "operating-points-v2";
+	
+		opp@533000000 {
+			opp-hz = /bits/ 64 <533000000>;
+			opp-microvolt = <1250000>;
+		};
+		opp@450000000 {
+			opp-hz = /bits/ 64 <450000000>;
+			opp-microvolt = <1150000>;
+		};
+		opp@400000000 {
+			opp-hz = /bits/ 64 <400000000>;
+			opp-microvolt = <1125000>;
+		};
+		opp@350000000 {
+			opp-hz = /bits/ 64 <350000000>;
+			opp-microvolt = <1075000>;
+		};
+		opp@266000000 {
+			opp-hz = /bits/ 64 <266000000>;
+			opp-microvolt = <1025000>;
+		};
+		opp@160000000 {
+			opp-hz = /bits/ 64 <160000000>;
+			opp-microvolt = <925000>;
+		};
+		opp@100000000 {
+			opp-hz = /bits/ 64 <100000000>;
+			opp-microvolt = <912500>;
+		};
+	};
+	
 	
 	/* mali */
 	mali: mali@11500000 {
@@ -3295,11 +3330,11 @@
 		interrupt-names = "JOB", "MMU", "GPU";
 		g3d_cmu_cal_id = <ACPM_DVFS_G3D>;
 		samsung,power-domain = <&pd_g3d>;
-		power-domains = <&pd_g3d>;
-		operating-points-v2 = <&gpu_opp_table>;
+
+		clocks = <&cru ACLK_GPU>;
 		mali-supply = <&vdd_gpu>;
-		/* clocks = <&clock X>;
-		clock-names = "core";  potentially unneeded */
+		operating-points-v2 = <&gpu_opp_table>;
+		power-domains = <&power RK3288_PD_GPU>;
 		
 		g3d_genpd_name = "pd-g3d"; /*KC, RM: pd-g3d, LT,MK: pd-embedded_g3d*/
 		#cooling-cells = <2>; /* min followed by max */
