@@ -20,6 +20,10 @@ OBJCOPYFLAGS_Image :=-O binary -R .note -R .note.gnu.build-id -R .comment -S
 
 targets := Image Image.gz
 
+# Stolen from the x86 Makefile
+HOST_EXTRACFLAGS += -I$(srctree)/tools/include \
+		    -include include/generated/autoconf.h
+
 DTB_NAMES := $(subst $\",,$(CONFIG_BUILD_ARM64_APPENDED_DTB_IMAGE_NAMES))
 ifneq ($(DTB_NAMES),)
 DTB_LIST := $(addsuffix .dtb,$(DTB_NAMES))
