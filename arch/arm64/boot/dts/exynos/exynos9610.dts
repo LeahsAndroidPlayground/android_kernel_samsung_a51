@@ -3623,7 +3623,7 @@
 		/* define_event_index ev0 ev1 ev2 ev3 */
 		define_events = <0x0	0x0  0x0  0x0  0x0>,
 				<0x1	0x4  0x5  0x26  0x27>;
-		default_define_event = <PEAK_LATENCY_FMT_EVT>;
+		default_define_event = <0x1>;
 
 		/* sm_id_mask sm_id_value */
 		define_filter_id = <0x0	0x0  0x0>,
