@@ -3331,7 +3331,6 @@
 		g3d_cmu_cal_id = <ACPM_DVFS_G3D>;
 		samsung,power-domain = <&pd_g3d>;
 
-		clocks = <&cru ACLK_GPU>;
 		mali-supply = <&vdd_gpu>;
 		operating-points-v2 = <&gpu_opp_table>;
 		power-domains = <&power RK3288_PD_GPU>;
