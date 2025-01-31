@@ -3333,7 +3333,7 @@
 
 		mali-supply = <&vdd_gpu>;
 		operating-points-v2 = <&gpu_opp_table>;
-		power-domains = <&power RK3288_PD_GPU>;
+		/* power-domains = <&power RK3288_PD_GPU>; */
 		
 		g3d_genpd_name = "pd-g3d"; /*KC, RM: pd-g3d, LT,MK: pd-embedded_g3d*/
 		#cooling-cells = <2>; /* min followed by max */
