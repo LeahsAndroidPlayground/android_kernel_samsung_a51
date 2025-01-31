@@ -7,10 +7,9 @@
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 as
  * published by the Free Software Foundation.
- *
- * #include <generated/autoconf.h>
- *
  */
+
+#include <generated/autoconf.h>
 #include <dt-bindings/soc/samsung/debug-snapshot-table.h>
 #include <dt-bindings/soc/samsung/exynos9610-seclog.h>
 
