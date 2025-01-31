@@ -3298,8 +3298,8 @@
 		power-domains = <&pd_g3d>;
 		operating-points-v2 = <&gpu_opp_table>;
 		mali-supply = <&vdd_gpu>;
-		clocks = <&clock-controller X>;
-		clock-names = "core";  /* potentially unneeded */
+		/* clocks = <&clock X>;
+		clock-names = "core";  potentially unneeded */
 		
 		g3d_genpd_name = "pd-g3d"; /*KC, RM: pd-g3d, LT,MK: pd-embedded_g3d*/
 		#cooling-cells = <2>; /* min followed by max */
